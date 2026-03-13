@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krish Lunagariya | Data Analyst Portfolio</title>
+    <meta name="description" content="Portfolio of Krish Lunagariya, an aspiring Data Analyst transforming raw data into actionable insights.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Animations & Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#10b981',
+                        accent: '#8b5cf6',
+                        dark: '#030712',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark text-slate-200 selection:bg-primary/30 selection:text-white overflow-x-hidden">
+    <!-- Animated Mesh Gradient Background -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+        <div class="mesh-gradient opacity-50"></div>
+        <div class="absolute inset-0 bg-dark/70 backdrop-blur-[120px]"></div>
+    </div>
+
+    <nav id="main-nav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-dark/20 backdrop-blur-lg transition-transform duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#hero" class="text-2xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent tracking-tight">
+                KL.
+            </a>
+            <!-- Desktop Nav -->
+            <div id="nav-links" class="hidden md:flex items-center gap-1 relative text-sm font-medium">
+                <a href="#hero"      class="nav-link relative px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-colors duration-200 z-10">Home</a>
+                <a href="#about"     class="nav-link relative px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-colors duration-200 z-10">About</a>
+                <a href="#skills"    class="nav-link relative px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-colors duration-200 z-10">Skills</a>
+                <a href="#certifications" class="nav-link relative px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-colors duration-200 z-10">Certifications</a>
+                <a href="#projects"  class="nav-link relative px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-colors duration-200 z-10">Projects</a>
+                <a href="#dashboard" class="nav-link relative px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-colors duration-200 z-10">Dashboard</a>
+                <a href="#contact"   class="nav-link relative px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-colors duration-200 z-10">Contact</a>
+                <!-- Sliding indicator -->
+                <span id="nav-indicator" class="absolute bottom-0 left-0 h-0.5 rounded-full pointer-events-none" style="background: linear-gradient(90deg, #3b82f6, #8b5cf6); box-shadow: 0 0 12px 2px rgba(59,130,246,0.7); transition: left 0.35s cubic-bezier(.4,0,.2,1), width 0.35s cubic-bezier(.4,0,.2,1), opacity 0.3s; opacity:0;"></span>
+            </div>
+            <button id="menu-btn" class="md:hidden p-2 text-slate-400 hover:text-white transition-colors">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-[#030712] z-[100] flex flex-col items-center justify-center md:hidden">
+        <button id="close-btn" class="absolute top-8 right-8 p-4 text-slate-400 hover:text-white transition-colors">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <ul class="flex flex-col items-center gap-10">
+            <li><a href="#hero" class="nav-link-mobile text-3xl font-heading font-bold hover:text-primary transition-all">Home</a></li>
+            <li><a href="#about" class="nav-link-mobile text-3xl font-heading font-bold hover:text-primary transition-all">About</a></li>
+            <li><a href="#skills" class="nav-link-mobile text-3xl font-heading font-bold hover:text-primary transition-all">Skills</a></li>
+            <li><a href="#certifications" class="nav-link-mobile text-3xl font-heading font-bold hover:text-primary transition-all">Certifications</a></li>
+            <li><a href="#projects" class="nav-link-mobile text-3xl font-heading font-bold hover:text-primary transition-all">Projects</a></li>
+            <li><a href="#dashboard" class="nav-link-mobile text-3xl font-heading font-bold hover:text-primary transition-all">Dashboard</a></li>
+            <li><a href="#contact" class="nav-link-mobile text-3xl font-heading font-bold hover:text-primary transition-all">Contact</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
+            <!-- Data Visualization Canvas (Hero Only) -->
+            <canvas id="heroCanvas" class="absolute inset-0 z-0 w-full h-full"></canvas>
+            <div class="absolute inset-0 z-0">
+                <!-- Decorative Elements -->
+                <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse-slow"></div>
+                <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[120px] animate-pulse-slow"></div>
+            </div>
+            
+            <div class="relative z-10 max-w-4xl text-center bg-dark/60 p-10 md:p-14 rounded-[3rem] backdrop-blur-md border border-white/10 shadow-[0_0_50px_rgba(14,165,233,0.15)] reveal-y">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl mb-8">
+                    <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                    <span class="text-sm font-medium tracking-wide text-cyan-400 font-bold">Available for Work</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-heading font-extrabold mb-6 leading-tight">
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-teal-400">Krish Lunagariya</span>
+                </h1>
+                <p class="text-2xl md:text-3xl font-heading font-medium text-slate-300 mb-8">
+                    <span id="typed-text"></span>
+                </p>
+                <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Transforming raw data into meaningful insights using <span class="text-white font-semibold">Python</span>, <span class="text-white font-semibold">SQL</span>, <span class="text-white font-semibold">Excel</span>, and <span class="text-white font-semibold">Power BI</span>.
+                </p>
+                
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#projects" class="glow-button px-8 py-4 rounded-xl bg-cyan-600 text-white font-bold shadow-lg shadow-cyan-500/25">
+                        View Projects
+                    </a>
+                    <a href="#" class="glow-button px-8 py-4 rounded-xl border border-cyan-500/30 bg-white/5 backdrop-blur-xl text-cyan-300 hover:text-white transition-colors font-bold">
+                        Download Resume
+                    </a>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="flex justify-center gap-6 mt-10">
+                    <a href="https://github.com/krishlunagariya1" target="_blank" aria-label="GitHub Profile" class="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 hover:scale-110 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all duration-300">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/krish-lunagariya-75569831a/" target="_blank" aria-label="LinkedIn Profile" class="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-slate-300 hover:text-cyan-400 hover:bg-white/10 hover:scale-110 hover:shadow-[0_0_15px_rgba(34,211,238,0.4)] transition-all duration-300">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Floating Data Indicators -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
+                <i data-lucide="chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-24 px-6 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row gap-16 items-center">
+
+                    <!-- Profile Photo (left on desktop, top on mobile) -->
+                    <div class="flex-shrink-0 flex justify-center w-full md:w-auto about-photo-reveal">
+                        <div class="relative group/photo">
+                            <!-- Outer glow ring -->
+                            <div class="absolute -inset-2 bg-gradient-to-r from-primary via-accent to-cyan-400 rounded-full blur-md opacity-40 group-hover/photo:opacity-70 transition-all duration-700"></div>
+                            <!-- Secondary pulse ring -->
+                            <div class="absolute -inset-4 bg-gradient-to-r from-primary to-accent rounded-full blur-xl opacity-20 animate-pulse-slow"></div>
+                            <img
+                                src="profile.jpg"
+                                alt="Krish Lunagariya"
+                                class="relative w-52 h-52 md:w-64 md:h-64 rounded-full object-cover border-4 border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.4)] group-hover/photo:scale-105 group-hover/photo:shadow-[0_0_60px_rgba(59,130,246,0.6)] transition-all duration-500"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- About Text -->
+                    <div class="reveal-right flex-1">
+                        <h2 class="text-4xl md:text-5xl font-heading font-bold mb-3">
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">Krish Lunagariya</span>
+                        </h2>
+                        <p class="text-slate-500 text-sm uppercase tracking-widest font-bold mb-8">Aspiring Data Analyst</p>
+                        <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                            I am a BSc IT student at <span class="text-white font-semibold">Atmiya University</span> and an aspiring <span class="text-white font-semibold">Data Analyst</span>. I am passionate about analyzing data and transforming it into meaningful insights using tools like <span class="text-white font-semibold">Python</span>, <span class="text-white font-semibold">SQL</span>, <span class="text-white font-semibold">Excel</span>, and <span class="text-white font-semibold">Power BI</span>.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-6 mb-8">
+                            <div class="p-4 rounded-xl border border-white/5 bg-white/5">
+                                <p class="text-2xl font-bold font-heading text-white mb-1">BSc IT</p>
+                                <p class="text-sm text-slate-500 uppercase tracking-wider">Atmiya University</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-white/5 bg-white/5">
+                                <p class="text-2xl font-bold font-heading text-white mb-1">10+</p>
+                                <p class="text-sm text-slate-500 uppercase tracking-wider">Project Insights</p>
+                            </div>
+                        </div>
+
+                        <!-- Mini badge -->
+                        <div class="inline-flex items-center gap-3 glass-card px-5 py-3 rounded-2xl">
+                            <i data-lucide="graduation-cap" class="w-4 h-4 text-primary"></i>
+                            <span class="text-sm font-bold">Currently Pursuing BSc IT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-24 px-6 relative bg-white/[0.01]">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-20 reveal-y">
+                    <h2 class="text-4xl md:text-5xl font-heading font-bold mb-4">Technical Arsenal</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Mastering the tools that turn raw numbers into business strategy.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Programming -->
+                    <div class="glass-card p-8 rounded-3xl reveal-left">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6">
+                            <i data-lucide="code-2"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-6">Programming</h3>
+                        <div class="space-y-6">
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm font-medium">Python</span>
+                                    <span class="text-xs text-slate-500">Advanced</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-blue-500 rounded-full" style="width: 0%" data-progress="90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm font-medium">SQL</span>
+                                    <span class="text-xs text-slate-500">Advanced</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-blue-500 rounded-full" style="width: 0%" data-progress="85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Tools -->
+                    <div class="glass-card p-8 rounded-3xl reveal-y">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-6">
+                            <i data-lucide="layout-dashboard"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-6">Data Tools</h3>
+                        <div class="space-y-6">
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm font-medium">Power BI</span>
+                                    <span class="text-xs text-slate-500">Expert</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-emerald-500 rounded-full" style="width: 0%" data-progress="95%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm font-medium">Excel</span>
+                                    <span class="text-xs text-slate-500">Advanced</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-emerald-500 rounded-full" style="width: 0%" data-progress="90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item opacity-60">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm font-medium">Tableau</span>
+                                    <span class="text-xs text-slate-500">Learning</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-emerald-500 rounded-full" style="width: 0%" data-progress="40%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Analytics -->
+                    <div class="glass-card p-8 rounded-3xl reveal-right">
+                        <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-500 mb-6">
+                            <i data-lucide="bar-chart-big"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-6">Methodology</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-violet-500"></i>
+                                Data Cleaning & ETL
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-violet-500"></i>
+                                Statistical Analysis
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-violet-500"></i>
+                                Exploratory Data Analysis (EDA)
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-violet-500"></i>
+                                KPI Development
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="py-24 px-6 relative bg-white/[0.01]">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16 reveal-y">
+                    <h2 class="text-4xl md:text-5xl font-heading font-bold mb-4">Certifications</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Professional credentials and specialized training in Data Analytics.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cert 1 -->
+                    <div class="glass-card p-6 rounded-3xl group hover:-translate-y-2 transition-all duration-300 reveal-y">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="award" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors text-white">Data Analytics Certification</h3>
+                        <div class="flex items-center gap-2 text-sm text-slate-400 mb-5">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-primary"></i>
+                            <span>Coursera</span>
+                        </div>
+                        <div class="inline-flex px-3 py-1 rounded-full bg-white/5 text-xs font-medium text-slate-300 border border-white/5">Completed</div>
+                    </div>
+
+                    <!-- Cert 2 -->
+                    <div class="glass-card p-6 rounded-3xl group hover:-translate-y-2 transition-all duration-300 reveal-y" style="transition-delay: 100ms;">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="file-code-2" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors text-white">Python for Data Analysis</h3>
+                        <div class="flex items-center gap-2 text-sm text-slate-400 mb-5">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-primary"></i>
+                            <span>DataCamp</span>
+                        </div>
+                        <div class="inline-flex px-3 py-1 rounded-full bg-white/5 text-xs font-medium text-slate-300 border border-white/5">Completed</div>
+                    </div>
+
+                    <!-- Cert 3 -->
+                    <div class="glass-card p-6 rounded-3xl group hover:-translate-y-2 transition-all duration-300 reveal-y" style="transition-delay: 200ms;">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="database" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors text-white">SQL for Data Science</h3>
+                        <div class="flex items-center gap-2 text-sm text-slate-400 mb-5">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-primary"></i>
+                            <span>Udacity</span>
+                        </div>
+                        <div class="inline-flex px-3 py-1 rounded-full bg-white/5 text-xs font-medium text-slate-300 border border-white/5">Completed</div>
+                    </div>
+
+                    <!-- Cert 4 -->
+                    <div class="glass-card p-6 rounded-3xl group hover:-translate-y-2 transition-all duration-300 reveal-y">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="pie-chart" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors text-white">Power BI Dashboard Dev</h3>
+                        <div class="flex items-center gap-2 text-sm text-slate-400 mb-5">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-primary"></i>
+                            <span>Microsoft</span>
+                        </div>
+                        <div class="inline-flex px-3 py-1 rounded-full bg-white/5 text-xs font-medium text-slate-300 border border-white/5">Completed</div>
+                    </div>
+
+                    <!-- Cert 5 -->
+                    <div class="glass-card p-6 rounded-3xl group hover:-translate-y-2 transition-all duration-300 reveal-y" style="transition-delay: 100ms;">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="table" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors text-white">Excel for Data Analysis</h3>
+                        <div class="flex items-center gap-2 text-sm text-slate-400 mb-5">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-primary"></i>
+                            <span>LinkedIn Learning</span>
+                        </div>
+                        <div class="inline-flex px-3 py-1 rounded-full bg-white/5 text-xs font-medium text-slate-300 border border-white/5">Completed</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 px-6 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 reveal-y">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-heading font-bold mb-4">Featured Projects</h2>
+                        <p class="text-slate-400 max-w-xl">Turning complex datasets into clear narratives and strategic recommendations.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <button class="filter-btn active px-6 py-2 rounded-full border border-white/10 bg-white/10 text-sm font-medium hover:bg-white/10 transition-colors" data-filter="all">All</button>
+                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-medium hover:bg-white/10 transition-colors" data-filter="python">Python</button>
+                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-medium hover:bg-white/10 transition-colors" data-filter="power-bi">Power BI</button>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Project 1 -->
+                    <div class="project-card glass-card rounded-3xl overflow-hidden group reveal-left" data-category="python">
+                        <div class="relative h-64 overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent z-10"></div>
+                            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" alt="Sales Data Analysis" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute bottom-6 left-6 z-20">
+                                <span class="px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md text-primary text-xs font-bold border border-primary/20 mb-3 inline-block">Analysis</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Sales Data Analysis</h3>
+                            <p class="text-slate-400 mb-6 leading-relaxed">Analyzed a comprehensive sales dataset to identify seasonal trends, underperforming regions, and high-growth potential products.</p>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/5">Python</span>
+                                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/5">Pandas</span>
+                                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/5">Matplotlib</span>
+                            </div>
+                            <div class="flex items-center gap-6">
+                                <a href="https://github.com/krishlunagariya1" target="_blank" class="flex items-center gap-2 text-sm font-bold text-white hover:text-primary hover:scale-105 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)] transition-all duration-300"><i data-lucide="github" class="w-4 h-4"></i> Source Code</a>
+                                <a href="#" class="flex items-center gap-2 text-sm font-bold text-white hover:text-primary transition-colors"><i data-lucide="external-link" class="w-4 h-4"></i> Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card glass-card rounded-3xl overflow-hidden group reveal-right" data-category="sql" style="transition-delay: 100ms;">
+                        <div class="relative h-64 overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" alt="E-commerce Analysis" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute bottom-6 left-6 z-20">
+                                <span class="px-3 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md text-emerald-500 text-xs font-bold border border-emerald-500/20 mb-3 inline-block">Database</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-emerald-500 transition-colors">SQL E-commerce Analysis</h3>
+                            <p class="text-slate-400 mb-6 leading-relaxed">Used complex SQL queries to analyze customer behavior, product sales performance, and revenue insights for a large-scale e-commerce platform.</p>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/5">MySQL</span>
+                                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/5">Workbench</span>
+                                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/5">Data Modeling</span>
+                            </div>
+                            <div class="flex items-center gap-6">
+                                <a href="https://github.com/krishlunagariya1" target="_blank" class="flex items-center gap-2 text-sm font-bold text-white hover:text-emerald-500 hover:scale-105 hover:drop-shadow-[0_0_8px_rgba(16,185,129,0.8)] transition-all duration-300"><i data-lucide="github" class="w-4 h-4"></i> Code</a>
+                                <a href="#" class="flex items-center gap-2 text-sm font-bold text-white hover:text-emerald-500 transition-colors"><i data-lucide="external-link" class="w-4 h-4"></i> Insights</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="project-card glass-card rounded-3xl overflow-hidden group reveal-y" data-category="power-bi">
+                        <div class="relative h-64 overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" alt="Power BI Dashboard" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute bottom-6 left-6 z-20">
+                                <span class="px-3 py-1 rounded-full bg-yellow-500/20 backdrop-blur-md text-yellow-500 text-xs font-bold border border-yellow-500/20 mb-3 inline-block">Visualization</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-yellow-500 transition-colors">Power BI Business Dashboard</h3>
+                            <p class="text-slate-400 mb-6 leading-relaxed">Developed an automated interactive dashboard showing real-time KPIs, revenue distribution, and customer metrics for data-driven decision making.</p>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/5">Power BI</span>
+                                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/5">DAX</span>
+                                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/5">ETL</span>
+                            </div>
+                            <div class="flex items-center gap-6">
+                                <a href="#" class="flex items-center gap-2 text-sm font-bold text-white hover:text-yellow-500 transition-colors"><i data-lucide="external-link" class="w-4 h-4"></i> View Dashboard</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="project-card glass-card rounded-3xl overflow-hidden group reveal-y" data-category="python" style="transition-delay: 100ms;">
+                        <div class="relative h-64 overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" alt="Customer Segmentation" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute bottom-6 left-6 z-20">
+                                <span class="px-3 py-1 rounded-full bg-violet-500/20 backdrop-blur-md text-violet-500 text-xs font-bold border border-violet-500/20 mb-3 inline-block">Machine Learning</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-violet-500 transition-colors">Customer Segmentation</h3>
+                            <p class="text-slate-400 mb-6 leading-relaxed">Applied clustering algorithms to segment customers based on purchasing behavior, enabling targeted marketing strategies and improved retention.</p>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/5">Python</span>
+                                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/5">Scikit-Learn</span>
+                                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/5">Clustering</span>
+                            </div>
+                            <div class="flex items-center gap-6">
+                                <a href="https://github.com/krishlunagariya1" target="_blank" class="flex items-center gap-2 text-sm font-bold text-white hover:text-violet-500 hover:scale-105 hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.8)] transition-all duration-300"><i data-lucide="github" class="w-4 h-4"></i> Code</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Data Dashboard Section -->
+        <section id="dashboard" class="py-24 px-6 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16 reveal-y">
+                    <h2 class="text-4xl md:text-5xl font-heading font-bold mb-4">Live Analytics Insights</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Real-time data visualization demonstrating predictive modeling and exploratory analysis.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8 mb-12">
+                    <!-- Metrics Column -->
+                    <div class="lg:col-span-1 space-y-6">
+                        <div class="glass-card p-6 rounded-2xl reveal-left">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <p class="text-slate-500 text-xs uppercase tracking-widest mb-1">Data Processing</p>
+                                    <h4 class="text-2xl font-bold font-heading">98.4%</h4>
+                                </div>
+                                <div class="p-2 rounded-lg bg-blue-500/10 text-blue-500">
+                                    <i data-lucide="cpu" class="w-5 h-5"></i>
+                                </div>
+                            </div>
+                            <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-500 rounded-full" style="width: 98.4%"></div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl reveal-left" style="transition-delay: 100ms;">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <p class="text-slate-500 text-xs uppercase tracking-widest mb-1">Insights Generated</p>
+                                    <h4 class="text-2xl font-bold font-heading">1,240+</h4>
+                                </div>
+                                <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-500">
+                                    <i data-lucide="zap" class="w-5 h-5"></i>
+                                </div>
+                            </div>
+                            <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                                <div class="h-full bg-emerald-500 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl reveal-left" style="transition-delay: 200ms;">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <p class="text-slate-500 text-xs uppercase tracking-widest mb-1">System Uptime</p>
+                                    <h4 class="text-2xl font-bold font-heading">99.9%</h4>
+                                </div>
+                                <div class="p-2 rounded-lg bg-violet-500/10 text-violet-500">
+                                    <i data-lucide="activity" class="w-5 h-5"></i>
+                                </div>
+                            </div>
+                            <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                                <div class="h-full bg-violet-500 rounded-full" style="width: 99.9%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Chart -->
+                    <div class="lg:col-span-2 glass-card p-8 rounded-3xl reveal-right relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-40 transition-opacity">
+                            <i data-lucide="line-chart" class="w-32 h-32 text-blue-500"></i>
+                        </div>
+                        <div class="relative z-10 h-full flex flex-col">
+                            <div class="flex justify-between items-center mb-8">
+                                <h3 class="text-xl font-bold font-heading">Data Trends Analysis</h3>
+                                <div class="flex gap-2">
+                                    <span class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-500 text-[10px] font-bold uppercase">Real-time</span>
+                                    <span class="px-3 py-1 rounded-full bg-white/5 text-slate-500 text-[10px] font-bold uppercase">Weekly</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow min-h-[300px]">
+                                <canvas id="mainDashboardChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 px-6 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-16">
+                    <div class="reveal-y">
+                        <h2 class="text-4xl md:text-5xl font-heading font-bold mb-8">
+                            Let's Build Something <br/>
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">Insightful</span>
+                        </h2>
+                        <p class="text-lg text-slate-400 leading-relaxed mb-12">
+                            Have a dataset that needs analyzing or a business problem that needs a data-driven solution? I'm always open to discussing new projects and opportunities.
+                        </p>
+                        
+                        <div class="space-y-8">
+                            <div class="flex items-center gap-6 group">
+                                <a href="mailto:krishlunagariya303@gmail.com" class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-primary group-hover:bg-primary/20 hover:scale-110 hover:shadow-[0_0_20px_rgba(59,130,246,0.6)] hover:text-white transition-all duration-300">
+                                    <i data-lucide="mail"></i>
+                                </a>
+                                <div>
+                                    <p class="text-xs text-slate-500 uppercase font-bold tracking-widest mb-1">Email</p>
+                                    <a href="mailto:krishlunagariya303@gmail.com" class="text-lg font-medium text-slate-200 hover:text-primary hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)] transition-all duration-300">krishlunagariya303@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-6 group">
+                                <a href="https://www.linkedin.com/in/krish-lunagariya-75569831a/" target="_blank" class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-primary group-hover:bg-primary/20 hover:scale-110 hover:shadow-[0_0_20px_rgba(59,130,246,0.6)] hover:text-white transition-all duration-300">
+                                    <i data-lucide="linkedin"></i>
+                                </a>
+                                <div>
+                                    <p class="text-xs text-slate-500 uppercase font-bold tracking-widest mb-1">LinkedIn</p>
+                                    <p class="text-lg font-medium">linkedin.com/in/krishluna</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-6 group">
+                                <a href="https://github.com/krishlunagariya1" target="_blank" class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-primary group-hover:bg-primary/20 hover:scale-110 hover:shadow-[0_0_20px_rgba(59,130,246,0.6)] hover:text-white transition-all duration-300">
+                                    <i data-lucide="github"></i>
+                                </a>
+                                <div>
+                                    <p class="text-xs text-slate-500 uppercase font-bold tracking-widest mb-1">GitHub</p>
+                                    <p class="text-lg font-medium">github.com/KrishLunagariya</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="reveal-y" style="transition-delay: 200ms;">
+                        <div class="glass-card p-10 rounded-3xl">
+                            <form id="contact-form" class="space-y-6">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium text-slate-400">Name</label>
+                                        <input type="text" placeholder="John Doe" class="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium text-slate-400">Email</label>
+                                        <input type="email" placeholder="john@example.com" class="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all">
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium text-slate-400">Subject</label>
+                                    <input type="text" placeholder="Data Consultation" class="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium text-slate-400">Message</label>
+                                    <textarea rows="5" placeholder="Tell me about your project..." class="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all resize-none"></textarea>
+                                </div>
+                                <button type="submit" class="glow-button w-full py-5 rounded-xl bg-primary text-white font-bold transition-all flex items-center justify-center gap-3">
+                                    Send Message <i data-lucide="send" class="w-5 h-5"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 px-6 border-t border-white/5">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+                <div>
+                    <a href="#" class="text-2xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent mb-2 inline-block">
+                        KL.
+                    </a>
+                    <p class="text-xs text-slate-500 tracking-wider">Ã‚Â© 2026 Krish Lunagariya. Data Analyst Portfolio.</p>
+                </div>
+                
+                <div class="flex gap-8 flex-wrap justify-center text-xs font-bold uppercase tracking-widest text-slate-500">
+                    <a href="#about" class="hover:text-primary transition-colors">About</a>
+                    <a href="#skills" class="hover:text-primary transition-colors">Skills</a>
+                    <a href="#certifications" class="hover:text-primary transition-colors">Certifications</a>
+                    <a href="#projects" class="hover:text-primary transition-colors">Projects</a>
+                </div>
+                
+                <div class="flex flex-col items-center gap-3">
+                    <a href="mailto:krishlunagariya303@gmail.com" class="flex items-center gap-2 text-xs text-slate-500 hover:text-primary hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.7)] transition-all duration-300 font-medium">
+                        <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+                        krishlunagariya303@gmail.com
+                    </a>
+                    <div class="flex gap-3">
+                        <a href="https://github.com/krishlunagariya1" target="_blank" class="w-10 h-10 rounded-full border border-white/5 bg-white/5 flex items-center justify-center hover:scale-110 hover:text-primary hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] hover:border-primary/50 transition-all duration-300">
+                            <i data-lucide="github" class="w-4 h-4"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/krish-lunagariya-75569831a/" target="_blank" class="w-10 h-10 rounded-full border border-white/5 bg-white/5 flex items-center justify-center hover:scale-110 hover:text-primary hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] hover:border-primary/50 transition-all duration-300">
+                            <i data-lucide="linkedin" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/5 bg-white/5 flex items-center justify-center hover:bg-white/10 transition-all">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
